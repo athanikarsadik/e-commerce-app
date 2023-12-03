@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   velocity_x: ^4.1.2
   get: ^4.6.6
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,24 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
+
+  fonts:
+  - family: sans_regular
+    fonts:
+      - asset: assets/fonts/sans_regular.ttf
+  
+  - family: sans_semibold
+    fonts:
+      - asset: assets/fonts/sans_semibold.ttf
+
+  - family: sans_bold
+    fonts:
+      - asset: assets/fonts/sans_bold.ttf
 
   
   
