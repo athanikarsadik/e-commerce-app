@@ -14,19 +14,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(393, 873),
-      builder: (BuildContext context, Widget? child) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: appname,
-          theme: ThemeData(
-            scaffoldBackgroundColor: Colors.transparent,
-            appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
-            fontFamily: regular
-          ),
-          home: SplashScreen(),
-        );
-      }
-    );
+        designSize: const Size(393, 873),
+        builder: (BuildContext context, Widget? child) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: appname,
+            theme: ThemeData(
+                scaffoldBackgroundColor: Colors.transparent,
+                appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.transparent,
+                    iconTheme: IconThemeData(color: darkFontGrey)),
+                fontFamily: regular),
+            home: SplashScreen(),
+          );
+        });
   }
 }

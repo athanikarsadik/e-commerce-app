@@ -30,5 +30,34 @@ const searchAnything = "Search anything...",
     topSellers = "Top Sellers",
     topCategories = "Top Categories",
     brand = "Brand",
-    featuredCategories = "Featured Categories"
-    ;
+    womenDress = "Women Dress",
+    girlsWathces = "Girl's Watches",
+    mobilePhone = "Mobile Phone",
+    boysGlasses = "Boy's glasses",
+    tShirts = "T-Shirts",
+    girlsBresses = "Girl's Bresses",
+    featuredProduct = "Featured Products",
+    featuredCategories = "Featured Categories";
+//categoriesStrings
+const womenClothing = "Women Clothing",
+    menClothingFashion = "Men Clothing & Fashion",
+    compAccess = "Computers & Accessories",
+    automobile = "Automobiles",
+    kidtoys = "Kids and Toys",
+    sports = "Sports",
+    jewelery = "Jewelery",
+    cellphone = "Cellphone and Tab",
+    furniture = "Furniture";
+
+//items detail Strings
+const video = "Video",
+    reviews = "Reviews",
+    sellerPolicy = "Seller Policy",
+    returnPolicy = "Return Policy",
+    productLikes = "Products you may also like",
+    supportPolicy = "Support Policy";
+
+//profile Strings
+
+const wishlist = "My Wishlist",orders = "My Orders", messages = "Messages";
+
