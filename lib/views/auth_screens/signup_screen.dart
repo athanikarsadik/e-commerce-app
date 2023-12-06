@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/consts/consts.dart';
+import 'package:e_commerce_app/controllers/auth_controller.dart';
 import 'package:e_commerce_app/views/auth_screens/login_screen.dart';
+import 'package:e_commerce_app/views/home_screens/home.dart';
 import 'package:e_commerce_app/widgets_common/applogo_widget.dart';
 import 'package:e_commerce_app/widgets_common/bg_widget.dart';
 import 'package:e_commerce_app/widgets_common/button.dart';
@@ -16,6 +18,13 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  var controller = Get.put(AuthController());
+
+  var nameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var passwordRetypeController = TextEditingController();
+  var emailController = TextEditingController();
+
   bool? isCheck = false;
   @override
   Widget build(BuildContext context) {
@@ -37,13 +46,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
             15.h.heightBox,
             Column(
               children: [
-                CustomTextField(title: name, hint: nameHint),
+                CustomTextField(
+                    title: name,
+                    hint: nameHint,
+                    controller: nameController,
+                    obscure: false),
                 10.h.heightBox,
-                CustomTextField(title: email, hint: emailHint),
+                CustomTextField(
+                    title: email,
+                    hint: emailHint,
+                    controller: emailController,
+                    obscure: false),
                 10.h.heightBox,
-                CustomTextField(title: password, hint: passwordHint),
+                CustomTextField(
+                    title: password,
+                    hint: passwordHint,
+                    controller: passwordController,
+                    obscure: true),
                 10.h.heightBox,
-                CustomTextField(title: retypePass, hint: retypePassHint),
+                CustomTextField(
+                    title: retypePass,
+                    hint: retypePassHint,
+                    controller: passwordRetypeController,
+                    obscure: true),
                 10.h.heightBox,
                 Align(
                     alignment: Alignment.centerRight,
@@ -67,37 +92,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           text: const TextSpan(children: [
                         TextSpan(
                             text: "I agree to the ",
-                            style:
-                                TextStyle(fontFamily: regular, color: fontGrey)),
+                            style: TextStyle(
+                                fontFamily: regular, color: fontGrey)),
                         TextSpan(
                             text: tnc,
-                            style:
-                                TextStyle(fontFamily: regular, color: redColor)),
+                            style: TextStyle(
+                                fontFamily: regular, color: redColor)),
                         TextSpan(
                             text: " & ",
-                            style:
-                                TextStyle(fontFamily: regular, color: redColor)),
+                            style: TextStyle(
+                                fontFamily: regular, color: redColor)),
                         TextSpan(
                             text: privacyPolicy,
-                            style:
-                                TextStyle(fontFamily: regular, color: redColor)),
+                            style: TextStyle(
+                                fontFamily: regular, color: redColor)),
                       ])),
                     ),
                   ],
                 ),
                 10.h.heightBox,
                 ourButton(
-                        color: isCheck!?redColor:lightGrey,
-                        title: signUp,
-                        textColor: whiteColor,
-                        onPress: () {})
-                    .box
-                    .width(context.screenWidth - 50)
-                    .make(),
+                    color: isCheck! ? redColor : lightGrey,
+                    title: signUp,
+                    textColor: whiteColor,
+                    onPress: () {
+                      if (passwordController.text.toString().trim() !=
+                          passwordRetypeController.text.toString().trim()) {
+                        VxToast.show(context, msg: "Password does not match");
+                        passwordController.text = '';
+                        passwordRetypeController.text = '';
+                        return;
+                      }
+                      if (isCheck!) {
+                        try {
+                          controller
+                              .signUpMethod(
+                                  context: context,
+                                  email: emailController.text.toString().trim(),
+                                  password:
+                                      passwordController.text.toString().trim())
+                              .then((value) => {
+                                    controller.storeUserData(
+                                        email: emailController.text
+                                            .toString()
+                                            .trim(),
+                                        password: passwordController.text
+                                            .toString()
+                                            .trim(),
+                                        name: nameController.text
+                                            .toString()
+                                            .trim())
+                                  })
+                              .then((value) => {
+                                    VxToast.show(context,
+                                        msg: "Logged in successfully!"),
+                                    Get.offAll(Home())
+                                  });
+                        } catch (e) {
+                          auth.signOut();
+                          VxToast.show(context, msg: e.toString());
+                        }
+                      }
+                    }).box.width(context.screenWidth - 50).make(),
                 10.h.heightBox,
                 GestureDetector(
                   onTap: () {
-                    Get.off(() => const LoginScreen());
+                    Get.off(() => LoginScreen());
                   },
                   child: RichText(
                       text: const TextSpan(children: [

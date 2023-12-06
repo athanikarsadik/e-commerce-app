@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:e_commerce_app/consts/consts.dart';
 import 'package:e_commerce_app/consts/lists.dart';
 import 'package:e_commerce_app/views/auth_screens/signup_screen.dart';
@@ -10,8 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
+
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  var controller = Get.put(AuthController());
+
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +37,17 @@ class LoginScreen extends StatelessWidget {
             15.h.heightBox,
             Column(
               children: [
-                CustomTextField(title: email, hint: emailHint),
+                CustomTextField(
+                    title: email,
+                    hint: emailHint,
+                    obscure: false,
+                    controller: emailController),
                 10.h.heightBox,
-                CustomTextField(title: password, hint: passwordHint),
+                CustomTextField(
+                    title: password,
+                    hint: passwordHint,
+                    obscure: true,
+                    controller: passwordController),
                 10.h.heightBox,
                 Align(
                     alignment: Alignment.centerRight,
@@ -38,15 +55,28 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {}, child: forgetPass.text.make())),
                 10.h.heightBox,
                 ourButton(
-                        color: redColor,
-                        title: login,
-                        textColor: whiteColor,
-                        onPress: () {
-                          Get.to(()=> Home());
-                        })
-                    .box
-                    .width(context.screenWidth - 50)
-                    .make(),
+                    color: redColor,
+                    title: login,
+                    textColor: whiteColor,
+                    onPress: () {
+                      try {
+                        controller.loginMethod(
+                            context: context,
+                            email: emailController.text.toString().trim(),
+                            password:
+                                passwordController.text.toString().trim()).then((value) => {
+                                  if(value!=null){
+                                    print(value),
+                                    VxToast.show(context,
+                                        msg: "Logged in successfully!"),
+                                    Get.offAll(Home())
+                                  }
+                                });
+                      } catch (e) {
+                        VxToast.show(context,
+                                        msg: "Something went wrong");
+                      }
+                    }).box.width(context.screenWidth - 50).make(),
                 10.h.heightBox,
                 createNewAccount.text.color(fontGrey).make(),
                 10.h.heightBox,

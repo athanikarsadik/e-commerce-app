@@ -1,9 +1,13 @@
 import 'package:e_commerce_app/consts/consts.dart';
 import 'package:e_commerce_app/consts/lists.dart';
+import 'package:e_commerce_app/views/auth_screens/login_screen.dart';
 import 'package:e_commerce_app/views/profile_screen/components/details_card.dart';
 import 'package:e_commerce_app/widgets_common/bg_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -47,7 +51,12 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   )),
                   OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.put(AuthController()).signOutMethod(context: context);
+                        VxToast.show(context,
+                                        msg: "Logged out successfully");
+                        Get.offAll(LoginScreen());
+                      },
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(color: whiteColor)),
                       child: "Logout".text.fontFamily(semibold).white.make())

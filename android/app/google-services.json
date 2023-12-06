@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "833814672355",
+    "project_id": "smart-92952",
+    "storage_bucket": "smart-92952.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833814672355:android:919a62a28862babb33e6d6",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6LHjbcOIFuofysPSuTHZ5xBRzkwX3aSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
